@@ -31,7 +31,7 @@ src(.cpp)/
 │
 └── mqtt_manager.cpp  ← AWS IoT commands + publish helpers
 ---
-
+```
 ## MQTT Commands (send from AWS IoT Console or backend)
 
 ### Dispense pills
