@@ -1,4 +1,4 @@
-# MedAI Cabinet — ESP32 Firmware
+ # MedAI Cabinet — ESP32 Firmware
 
 ## File Structure
 
@@ -81,7 +81,7 @@ MQTT command received
 Check inventory > 0?  ──No──► publishAlert("inventory_low") → publishStatus("failed")
     │ Yes
     ▼
-Open slot (motor +512 steps)
+Open slot (motor +1024 steps)
     │
     ▼
 Wait for IR to detect pill (up to 5s)
@@ -93,7 +93,7 @@ Wait for IR to detect pill (up to 5s)
 decreaseInventory()
     │
     ▼
-Close slot (motor -512 steps)
+Close slot (motor +1024 steps) (full 360 degree rotation back to the starting position)
     │
     ▼
 Wait for person to pick up pill (up to 30s)
