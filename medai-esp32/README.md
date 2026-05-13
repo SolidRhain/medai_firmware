@@ -3,7 +3,7 @@
 ## File Structure
 
 ```
-src/
+include(.h)/src(.cpp)/
 ├── main.cpp            ← setup() and loop() only
 ├── config.h            ← all pins, credentials, timing constants
 │
