@@ -112,9 +112,9 @@ publishInventory()
 1. Edit `src/config.h` — fill in WiFi credentials and MQTT broker
 2. Paste your 3 AWS cert files into `data/`, renaming them as following:
    
-      "AmazonRootCA1.pem"       to "AmazonRootCA1.pem"
-      "....certificate.pem.crt" to "device.pem.crt"
-      "....private.pem.key"     to "private.pem.key"
+"AmazonRootCA1.pem"       to "AmazonRootCA1.pem"
+"....certificate.pem.crt" to "device.pem.crt"
+"....private.pem.key"     to "private.pem.key"
    
 3. PlatformIO: **Upload Filesystem Image** (certs → SPIFFS)
 4. PlatformIO: **Upload** (firmware)
