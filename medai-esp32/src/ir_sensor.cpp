@@ -11,6 +11,7 @@ void initIRSensor() {
 bool isPillPresent() {
     // IR module: LOW = beam broken = pill detected
     return digitalRead(IR_SENSOR_PIN) == IR_PILL_DETECTED;
+    //return 0 == IR_PILL_DETECTED;
 }
 
 bool waitForPillDrop(unsigned long timeoutMs) {

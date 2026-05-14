@@ -10,7 +10,7 @@ void syncTime() {
 
     time_t now = time(nullptr);
 
-    while (now < 100000) {
+    while (now < 10000) {
         delay(500);
         Serial.print(".");
         now = time(nullptr);

@@ -1,37 +1,26 @@
- # MedAI Cabinet — ESP32 Firmware
+# MedAI Cabinet — ESP32 Firmware
 
 ## File Structure
 
 ```
-include(.h)/
-├── config.h            ← all pins, credentials, timing constants
-│
-├── wifi_manager.h  ← WiFi connection
-├── time_manager.h  ← NTP sync (required for TLS)
-├── cert_manager.h  ← load certs from SPIFFS
-│
-├── stepper.h       ← ULN2003 motor control (3 motors)
-├── ir_sensor.h     ← shared IR sensor at drop-off point
-├── inventory.h     ← pill count tracking per slot
-├── dispenser.h     ← dispense logic (open→detect→close→pickup)
-│
-└── mqtt_manager.h  ← AWS IoT commands + publish helpers
-src(.cpp)/
+src/
 ├── main.cpp            ← setup() and loop() only
 ├── config.h            ← all pins, credentials, timing constants
 │
-├── wifi_manager.cpp  ← WiFi connection
-├── time_manager.cpp  ← NTP sync (required for TLS)
-├── cert_manager.cpp  ← load certs from SPIFFS
+├── wifi_manager.h/cpp  ← WiFi connection
+├── time_manager.h/cpp  ← NTP sync (required for TLS)
+├── cert_manager.h/cpp  ← load certs from SPIFFS
 │
-├── stepper.cpp       ← ULN2003 motor control (3 motors)
-├── ir_sensor.cpp     ← shared IR sensor at drop-off point
-├── inventory.cpp     ← pill count tracking per slot
-├── dispenser.cpp     ← dispense logic (open→detect→close→pickup)
+├── stepper.h/cpp       ← ULN2003 motor control (3 motors)
+├── ir_sensor.h/cpp     ← shared IR sensor at drop-off point
+├── inventory.h/cpp     ← pill count tracking per slot
+├── dispenser.h/cpp     ← dispense logic (open→detect→close→pickup)
 │
-└── mqtt_manager.cpp  ← AWS IoT commands + publish helpers
----
+└── mqtt_manager.h/cpp  ← AWS IoT commands + publish helpers
 ```
+
+---
+
 ## MQTT Commands (send from AWS IoT Console or backend)
 
 ### Dispense pills
@@ -81,7 +70,7 @@ MQTT command received
 Check inventory > 0?  ──No──► publishAlert("inventory_low") → publishStatus("failed")
     │ Yes
     ▼
-Open slot (motor +1024 steps)
+Open slot (motor +512 steps)
     │
     ▼
 Wait for IR to detect pill (up to 5s)
@@ -93,7 +82,7 @@ Wait for IR to detect pill (up to 5s)
 decreaseInventory()
     │
     ▼
-Close slot (motor +1024 steps) (full 360 degree rotation back to the starting position)
+Close slot (motor -512 steps)
     │
     ▼
 Wait for person to pick up pill (up to 30s)
@@ -110,12 +99,7 @@ publishInventory()
 ## Setup Steps
 
 1. Edit `src/config.h` — fill in WiFi credentials and MQTT broker
-2. Paste your 3 AWS cert files into `data/`, renaming them as following:
-   
-"AmazonRootCA1.pem"       to "AmazonRootCA1.pem" |
-"....certificate.pem.crt" to "device.pem.crt" |
-"....private.pem.key"     to "private.pem.key"
-   
+2. Paste your 3 AWS cert files into `data/`
 3. PlatformIO: **Upload Filesystem Image** (certs → SPIFFS)
 4. PlatformIO: **Upload** (firmware)
 5. Open Serial Monitor at 115200

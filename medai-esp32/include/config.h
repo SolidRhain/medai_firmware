@@ -5,8 +5,8 @@
 // WIFI
 // ==========================
 
-#define WIFI_SSID       "YOUR_WIFI_SSID"
-#define WIFI_PASSWORD   "YOUR_WIFI_PASSWORD"
+#define WIFI_SSID       "wifiname"
+#define WIFI_PASSWORD   "wifipassword"
 
 // ==========================
 // AWS MQTT
@@ -68,7 +68,7 @@
 // 28BYJ-48 full rotation = 2048 steps
 // Quarter rotation = 512 steps
 // ==========================
-
+#define STEPS_HALF_ROTATION 1024
 #define STEPS_QUARTER_TURN  512     // open/close one slot
 #define STEP_DELAY_MS       2       // ms between steps (speed)
 

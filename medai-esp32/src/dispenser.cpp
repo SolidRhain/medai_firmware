@@ -12,14 +12,14 @@
 static void openSlot(int slot) {
     Serial.print("[Dispenser] Opening slot ");
     Serial.println(slot + 1);
-    rotateStepper(slot, STEPS_QUARTER_TURN);
+    rotateStepper(slot, 2*STEPS_HALF_ROTATION);  // rotate 180 degrees to open
     powerOffStepper(slot);  // cut coil power after moving
 }
 
 static void closeSlot(int slot) {
     Serial.print("[Dispenser] Closing slot ");
     Serial.println(slot + 1);
-    rotateStepper(slot, -STEPS_QUARTER_TURN);
+    rotateStepper(slot, 2*STEPS_HALF_ROTATION);  // rotate another 180 degrees to close
     powerOffStepper(slot);
 }
 
@@ -70,12 +70,12 @@ DispenseResult dispenseSinglePill(int slot) {
         closeSlot(slot);
 
         // Wait for person to pick up the pill
-        bool pickedUp = waitForPillPickup(PILL_PICKUP_TIMEOUT_MS);
+        //bool pickedUp = waitForPillPickup(PILL_PICKUP_TIMEOUT_MS);
 
-        if (!pickedUp) {
-            Serial.println("[Dispenser] WARNING: Pill not picked up within timeout");
-            return DISPENSE_NOT_PICKED_UP;
-        }
+        //if (!pickedUp) {
+        //    Serial.println("[Dispenser] WARNING: Pill not picked up within timeout");
+        //    return DISPENSE_NOT_PICKED_UP;
+        //}
 
         Serial.println("[Dispenser] Dispense complete");
         return DISPENSE_OK;
@@ -125,7 +125,7 @@ const char* dispenseResultToString(DispenseResult result) {
         case DISPENSE_OK:           return "ok";
         case DISPENSE_EMPTY:        return "empty";
         case DISPENSE_JAM:          return "jam";
-        case DISPENSE_NOT_PICKED_UP: return "not_picked_up";
+        //case DISPENSE_NOT_PICKED_UP: return "not_picked_up";
         default:                    return "unknown";
     }
 }
