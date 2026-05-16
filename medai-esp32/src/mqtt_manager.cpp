@@ -287,3 +287,40 @@ void publishInventory() {
     Serial.println(ok ? "OK" : "FAILED");
     Serial.println(buffer);
 }
+
+void publishTelemetry(float temperature, float humidity) {
+
+    // Buffer must be large enough for inventory + sensor data
+    StaticJsonDocument<300> doc;
+    doc["device"] = DEVICE_ID;
+
+    // Inventory
+    JsonObject inv = doc.createNestedObject("inventory");
+    inv["slot1"] = getInventory(0);
+    inv["slot2"] = getInventory(1);
+    inv["slot3"] = getInventory(2);
+
+    // DHT22 — only include if readings are valid
+    if (!isnan(temperature)) {
+        doc["temperature"] = serialized(String(temperature, 1));
+    } else {
+        doc["temperature"] = nullptr;
+    }
+
+    if (!isnan(humidity)) {
+        doc["humidity"] = serialized(String(humidity, 1));
+    } else {
+        doc["humidity"] = nullptr;
+    }
+
+    doc["uptime_s"] = millis() / 1000;
+
+    char buffer[300];
+    serializeJson(doc, buffer);
+
+    Serial.print("[MQTT] publishTelemetry: ");
+    Serial.println(buffer);
+
+    bool ok = mqttClient.publish(MQTT_TELEMETRY_TOPIC, buffer);
+    Serial.println(ok ? "[MQTT] Telemetry sent OK" : "[MQTT] Telemetry FAILED");
+}

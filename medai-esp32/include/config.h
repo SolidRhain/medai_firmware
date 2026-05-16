@@ -68,8 +68,9 @@
 // 28BYJ-48 full rotation = 2048 steps
 // Quarter rotation = 512 steps
 // ==========================
-#define STEPS_HALF_ROTATION 1024
-#define STEPS_QUARTER_TURN  512     // open/close one slot
+
+#define STEPS_QUARTER_TURN  512     
+#define STEPS_HALF_ROTATION 1024    // rotate 180 degrees to open/close
 #define STEP_DELAY_MS       2       // ms between steps (speed)
 
 // ==========================
@@ -81,6 +82,17 @@
 #define PILL_DETECT_TIMEOUT_MS  5000    // wait up to 5s for pill to drop
 #define PILL_PICKUP_TIMEOUT_MS  30000   // wait up to 30s for person to take pill
 #define PILL_DELAY_MS           1000    // delay between dispensing multiple pills
+
+// ==========================
+// DHT22 SENSOR
+// ==========================
+
+#define DHT_PIN         4       // GPIO4 — DATA pin of DHT22
+#define DHT_TYPE        DHT22
+
+// Alert thresholds
+#define TEMP_MAX_C      35.0    // alert if temperature exceeds this
+#define HUMIDITY_MAX    80.0    // alert if humidity exceeds this
 
 // ==========================
 // TIMING

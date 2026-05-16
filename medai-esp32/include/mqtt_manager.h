@@ -12,6 +12,12 @@ void mqttLoop();
 
 void publishStatus(const char* status);
 void publishAlert(const char* alertType, const char* detail);
+
+// Send inventory counts only (called internally after dispense)
 void publishInventory();
+
+// Send full telemetry: inventory + DHT22 temperature & humidity
+// Pass NAN for temp/humidity if sensor read failed
+void publishTelemetry(float temperature, float humidity);
 
 #endif

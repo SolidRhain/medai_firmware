@@ -11,7 +11,6 @@ void initIRSensor() {
 bool isPillPresent() {
     // IR module: LOW = beam broken = pill detected
     return digitalRead(IR_SENSOR_PIN) == IR_PILL_DETECTED;
-    //return 0 == IR_PILL_DETECTED;
 }
 
 bool waitForPillDrop(unsigned long timeoutMs) {
@@ -36,24 +35,24 @@ bool waitForPillDrop(unsigned long timeoutMs) {
     return false;
 }
 
-bool waitForPillPickup(unsigned long timeoutMs) {
+// bool waitForPillPickup(unsigned long timeoutMs) {
 
-    Serial.print("[IR] Waiting for person to pick up pill (timeout: ");
-    Serial.print(timeoutMs / 1000);
-    Serial.println("s)");
+//     Serial.print("[IR] Waiting for person to pick up pill (timeout: ");
+//     Serial.print(timeoutMs / 1000);
+//     Serial.println("s)");
 
-    unsigned long start = millis();
+//     unsigned long start = millis();
 
-    while (millis() - start < timeoutMs) {
+//     while (millis() - start < timeoutMs) {
 
-        if (!isPillPresent()) {
-            Serial.println("[IR] Pill picked up");
-            return true;
-        }
+//         if (!isPillPresent()) {
+//             Serial.println("[IR] Pill picked up");
+//             return true;
+//         }
 
-        delay(100);
-    }
+//         delay(100);
+//     }
 
-    Serial.println("[IR] Timeout — pill not picked up");
-    return false;
-}
+//     Serial.println("[IR] Timeout — pill not picked up");
+//     return false;
+// }
